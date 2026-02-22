@@ -1,5 +1,9 @@
 # 🦞 Lobster
 
+![Go](https://img.shields.io/badge/Go-00ADD8?style=for-the-badge&logo=go&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
+
 **Lobster** is a simple tool I built to solve a common problem: sharing passwords or secrets between devices without leaving a trace. Think of it as **AirDrop for the browser**, but it works on everything.
 
 I wanted something faster and more private than sending links to myself in Telegram "Saved Messages" or via email.
