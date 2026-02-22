@@ -24,10 +24,12 @@ Tech Stack: Go (Golang), Gorilla Mux, Docker (Multi-stage builds).
 
 1.  **Clone the repo**
 2.  **Build and Run with Docker:**
+
     ```bash
     docker build -t lobster .
     docker run -p 8080:8080 lobster
     ```
+
 3.  **Usage**:
 
 - Create: POST /api/links with {"password": "your-secret"}
