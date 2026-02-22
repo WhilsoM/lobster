@@ -1,36 +1,86 @@
 # 🦞 Lobster
 
-Lobster: Browser-based "AirDrop" for Secrets
+**Lobster** is a simple tool I built to solve a common problem: sharing passwords or secrets between devices without leaving a trace. Think of it as **AirDrop for the browser**, but it works on everything.
 
-Lobster is a lightweight, secure tool designed for quick, cross-platform data sharing. Think of it as AirDrop for your browser, but focused on passwords and sensitive strings.
+I wanted something faster and more private than sending links to myself in Telegram "Saved Messages" or via email.
 
-## How it works:
+## How it works
 
-You send a password/secret to the backend → Lobster generates a unique, one-time UUID link → You open that link on any other device → The secret is retrieved and instantly wiped from memory.
+1. You send a secret to the backend.
+2. Lobster gives you a unique UUID link.
+3. You open that link on another device (phone, laptop, whatever).
+4. The secret is shown and **immediately deleted** from the server's memory.
 
-## Key Features:
+## Why Lobster?
 
-- Ephemeral: No databases. Secrets live only in RAM and vanish forever after the first read.
+- **RAM only:** No databases. If the server restarts, everything is gone.
+- **One-time only:** Once the link is opened, it’s destroyed. No "back" button, no history.
+- **Privacy first:** Best used when deployed locally or in your private network.
+- **Clean code:** I used Golang with a layered architecture (Handler -> Service -> Repository) and Dependency Injection.
 
-- Cross-Platform: Works on any device with a browser (PC, Mac, iPhone, Android).
+## Tech Stack
 
-- Zero-Trace: Designed for local deployment to ensure maximum privacy.
+- **Language:** Go (Golang)
+- **Router:** Gorilla Mux
+- **Containerization:** Docker
+- **Concurrency:** Thread-safe `sync.RWMutex` for memory management.
 
-Tech Stack: Go (Golang), Gorilla Mux, Docker (Multi-stage builds).
+---
 
-> Ephemeral secret sharing tool — "AirDrop for your browser."
+## Quick Start
 
-### 🚀 Quick Start
+### 1. Run with Docker (Recommended)
 
-1.  **Clone the repo**
-2.  **Build and Run with Docker:**
+```bash
+# Build the image
+docker build -t lobster .
 
-    ```bash
-    docker build -t lobster .
-    docker run -p 8080:8080 lobster
-    ```
+# Start the container
+docker run -p 8080:8080 lobster
+```
 
-3.  **Usage**:
+### 2. Run locally
 
-- Create: POST /api/links with {"password": "your-secret"}
-- Retrieve: GET /api/links/{uuid} (Link is destroyed after use)
+If you have Go installed:
+
+```bash
+go run cmd/main.go
+```
+
+The server will start at http://localhost:8080.
+
+## API Usage
+
+### Create a secret
+
+Send your password as JSON:
+
+```bash
+curl -X POST http://localhost:8080/api/links \
+     -H "Content-Type: application/json" \
+     -d '{"password": "your-secret-string-here"}'
+```
+
+Response: {"id": "your-uuid-here"}
+
+### Get the secret
+
+Just hit the endpoint with the ID. Remember: it only works once!
+
+```bash
+curl http://localhost:8080/api/links/YOUR_UUID_HERE
+```
+
+Response: {"password": "your-secret-string-here"}
+
+## Project Structure
+
+I tried to keep things organized:
+
+- cmd/ — Entry point.
+- internal/handler/ — HTTP logic.
+- internal/service/ — Business logic & Interfaces (DI).
+- internal/repository/ — In-memory storage.
+- utils/ — JSON response helpers.
+
+Feel free to open an issue or a PR if you have ideas on how to make this even better!
