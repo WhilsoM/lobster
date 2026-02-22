@@ -1,0 +1,25 @@
+bin/
+lobster
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+ vendor/
+
+.DS_Store
+Thumbs.db
+
+.vscode/
+.idea/
+*.swp
+*.swo
+
+*.log
+tmp/
+
+.docker-compose.override.yml
+
+.env
+.env.*
