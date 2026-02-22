@@ -31,4 +31,4 @@ Tech Stack: Go (Golang), Gorilla Mux, Docker (Multi-stage builds).
 3.  **Usage**:
 
 - Create: POST /api/links with {"password": "your-secret"}
-  -Retrieve: GET /api/links/{uuid} (Link is destroyed after use)
+- Retrieve: GET /api/links/{uuid} (Link is destroyed after use)
