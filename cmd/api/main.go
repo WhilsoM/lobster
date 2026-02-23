@@ -1,13 +1,15 @@
 package main
 
 import (
-	"fmt"
+	"github.com/gorilla/mux"
+
 	"lobster/internal/handler"
 	"lobster/internal/repository"
 	"lobster/internal/service"
+
+	"fmt"
 	"net/http"
 	"time"
-	"github.com/gorilla/mux"
 )
 
 func main() {
@@ -18,9 +20,9 @@ func main() {
 	r := mux.NewRouter()
 
 	server := &http.Server{
-		Addr: ":8080", 
-		Handler: r,
-		ReadTimeout: 5 * time.Second,
+		Addr:         ":8080",
+		Handler:      r,
+		ReadTimeout:  5 * time.Second,
 		WriteTimeout: 10 * time.Second,
 	}
 

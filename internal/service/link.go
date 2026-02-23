@@ -1,9 +1,9 @@
 package service
 
 import (
-	"lobster/internal/models"
 	"errors"
 	"github.com/google/uuid"
+	"lobster/internal/models"
 )
 
 type LinkStorage interface {
@@ -16,7 +16,7 @@ type LinkService struct {
 }
 
 func (s *LinkService) CreateLinkService(password string) (models.CreateLinkResponse, error) {
-	if password == "" { 
+	if password == "" {
 		return models.CreateLinkResponse{}, errors.New("password cannot be empty")
 	}
 

@@ -5,6 +5,7 @@ lobster
 *.dll
 *.so
 *.dylib
+./main
 
  vendor/
 
@@ -23,3 +24,4 @@ tmp/
 
 .env
 .env.*
+
