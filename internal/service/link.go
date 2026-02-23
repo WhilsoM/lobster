@@ -2,7 +2,7 @@ package service
 
 import (
 	"lobster/internal/models"
-
+	"errors"
 	"github.com/google/uuid"
 )
 
@@ -16,9 +16,11 @@ type LinkService struct {
 }
 
 func (s *LinkService) CreateLinkService(password string) (models.CreateLinkResponse, error) {
-	namespace := uuid.Must(uuid.Parse("6ba7b810-9dad-11d1-80b4-00c04fd430c8"))
-	name := password
-	id := uuid.NewSHA1(namespace, []byte(name))
+	if password == "" { 
+		return models.CreateLinkResponse{}, errors.New("password cannot be empty")
+	}
+
+	id := uuid.New()
 	resp := models.CreateLinkResponse{ID: id}
 
 	s.Storage.Save(id, password)

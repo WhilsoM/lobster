@@ -25,7 +25,12 @@ func (s *LinkHandler) CreateLink(w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 
-	fmt.Printf("Получил Password: %s\n", req.Password)
+	if req.Password == "" {
+		utils.WriteError(w, http.StatusBadRequest, "password is required")
+		return
+	}
+
+	fmt.Printf("Создается ссылка для пароля (длина: %d)\n", len(req.Password))
 
 	resp, err := s.Service.CreateLinkService(req.Password)
 	if err != nil {
