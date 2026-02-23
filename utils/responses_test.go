@@ -30,4 +30,3 @@ func TestWriteJSON(t *testing.T) {
 		t.Errorf("except %s, get %s", expectedBody, actualBody)
 	}
 }
-
