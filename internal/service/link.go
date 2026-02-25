@@ -2,8 +2,9 @@ package service
 
 import (
 	"errors"
-	"github.com/google/uuid"
 	"lobster/internal/models"
+
+	"github.com/google/uuid"
 )
 
 type LinkStorage interface {
