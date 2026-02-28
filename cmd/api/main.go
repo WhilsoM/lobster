@@ -39,7 +39,7 @@ func main() {
 		WriteTimeout: 10 * time.Second,
 	}
 
-	fmt.Println("Server starting on http://localhost:8080")
+	fmt.Println("Server is starting on http://localhost:8080")
 
 	if err := server.ListenAndServe(); err != nil {
 		fmt.Printf("Server failed: %s\n", err)
