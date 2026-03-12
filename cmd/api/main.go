@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/gorilla/mux"
 	"github.com/rs/cors"
 
 	"lobster/internal/handler"
@@ -15,13 +14,15 @@ import (
 
 func main() {
 	storage := repository.NewLinkStore()
-	s := &service.LinkService{Storage: storage}
-	h := &handler.LinkHandler{Service: s}
+	s := service.NewLinkService(storage)
+	h := handler.NewLinkHandler(s)
 
-	r := mux.NewRouter()
+	r := http.NewServeMux()
 
-	r.HandleFunc("/api/links", h.CreateLink).Methods("POST")
-	r.HandleFunc("/api/links/{id}", h.GetLink).Methods("GET")
+	// REGISTER ROUTES
+	h.RegisterRoutes(r)
+
+	storage.StartCleanup(2 * time.Minute)
 
 	c := cors.New(cors.Options{
 		AllowedOrigins:   []string{"http://localhost:5173"},

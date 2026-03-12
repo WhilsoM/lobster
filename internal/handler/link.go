@@ -9,11 +9,19 @@ import (
 	"net/http"
 
 	"github.com/google/uuid"
-	"github.com/gorilla/mux"
 )
 
 type LinkHandler struct {
 	Service *service.LinkService
+}
+
+func NewLinkHandler(service *service.LinkService) *LinkHandler {
+	return &LinkHandler{Service: service}
+}
+
+func (h *LinkHandler) RegisterRoutes(r *http.ServeMux) {
+	r.HandleFunc("POST /api/links", h.CreateLink)
+	r.HandleFunc("GET /api/links/{id}", h.GetLink)
 }
 
 func (s *LinkHandler) CreateLink(w http.ResponseWriter, r *http.Request) {
@@ -42,8 +50,7 @@ func (s *LinkHandler) CreateLink(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *LinkHandler) GetLink(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	idStr := vars["id"]
+	idStr := r.PathValue("id")
 
 	id, err := uuid.Parse(idStr)
 	if err != nil {

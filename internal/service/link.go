@@ -16,6 +16,10 @@ type LinkService struct {
 	Storage LinkStorage
 }
 
+func NewLinkService(storage LinkStorage) *LinkService {
+	return &LinkService{Storage: storage}
+}
+
 func (s *LinkService) CreateLinkService(password string) (models.CreateLinkResponse, error) {
 	if password == "" {
 		return models.CreateLinkResponse{}, errors.New("password cannot be empty")
