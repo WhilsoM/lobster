@@ -25,9 +25,8 @@ I wanted something faster and more private than sending links to myself in Teleg
 ## Tech Stack
 
 - **Language:** Go (Golang)
-- **Router:** Gorilla Mux
 - **Containerization:** Docker
-- **Concurrency:** Thread-safe `sync.RWMutex` for memory management.
+- **Concurrency:** Thread-safe `sync.Mutex` for memory management.
 
 ---
 
